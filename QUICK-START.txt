@@ -1,0 +1,16 @@
+PROJECTPILOT — ONE-CLICK START
+
+Windows:
+1. Unzip this folder somewhere you keep projects.
+2. Double-click START-PROJECTPILOT.bat.
+3. On first launch, ProjectPilot creates its own Python environment and installs its pinned backend packages.
+4. Your browser opens automatically at http://127.0.0.1:8000.
+5. Leave the ProjectPilot window open while using the app. Close it (or press Ctrl+C) when finished.
+
+Required on the computer:
+- Python 3.11 or newer
+- Git
+
+Node and Docker are optional and only needed for some source verification/build features.
+
+Your project data stays in the data folder inside ProjectPilot unless PP_DATA_DIR is configured.

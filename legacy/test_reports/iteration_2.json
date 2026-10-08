@@ -1,0 +1,29 @@
+{
+  "summary": "Frontend-only regression test for the two new plan features (Copy-to-Clipboard, Plan-Diff-on-Regenerate) and the previously-observed 'stuck on Loading…' bug on Master Plan / Delegation Plan pages. All 6 requested scenarios pass. Master Plan and Delegation Plan pages load cleanly (no stuck Loading), Regenerate triggers the plan-diff-dialog with a populated diff body, success toasts appear ('Master plan generated — 8 roadmap tasks' and delegation equivalent), Copy button toast fires without crash (clipboard blocked in automation as expected → app shows graceful 'Copy failed — clipboard blocked' toast, no exception), and the regression navigation (Dashboard → Master Plan → Delegation Plan) shows both pages re-render with generate buttons and NO 'Loading…' hang. The previously fixed bug is confirmed resolved.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "PlanDiffDialog", "issues": ["React a11y console warning: 'Missing Description or aria-describedby={undefined} for DialogContent' — add a DialogDescription or aria-describedby to /app/frontend/src/components/PlanDiffDialog.jsx for accessibility compliance (non-blocking)."]}
+    ]
+  },
+  "test_report_links": ["/app/test_reports/iteration_2.json"],
+  "action_items": [
+    "(Optional/minor) Add DialogDescription/aria-describedby in PlanDiffDialog.jsx to silence a11y warning.",
+    "(Optional) On Copy button click when clipboard API is unavailable, the toast currently reads 'Copy failed — clipboard blocked'. Consider a friendlier fallback (e.g., copy via textarea + document.execCommand) so headless/automation and insecure contexts still succeed."
+  ],
+  "critical_code_review_comments": [
+    "MasterPlan.jsx / DelegationPlan.jsx load effect with cancel-guarded promise keyed on current?.id works — no Loading hang observed across multiple navigations and regenerates.",
+    "Backend replace_one upsert atomicity (no delete-then-insert null window) appears to fix the intermittent regenerate-hang scenario. Confirmed via UI: regenerating and immediately re-rendering the plan never left the page in a Loading state.",
+    "Diff dialog correctly reports '78 added / 127 removed' on first regenerate of the seeded hand-authored plan — matches the expected 'real (non-empty) diff on first regenerate' contract."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped per request)", "frontend": "100% (6/6 scenarios)"},
+  "test_credentials": "None — no auth",
+  "seed_data_creation": "None — used auto-seeded 'Contractor Storage Yard Website' project.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Master Plan and Delegation Plan pages both stable. data-testids verified: nav-master-plan, nav-delegation-plan, copy-master-btn, export-master-btn, generate-master-btn, copy-delegation-btn, export-delegation-btn, generate-delegation-btn, materialize-btn, plan-diff-dialog, plan-diff-body all present and functional. plan-diff-empty was NOT triggered (first-regen produced a non-empty diff, which is expected). If a subsequent regenerate is done on an already-generated plan, plan-diff-empty path should activate — not tested here.",
+  "rca of the issue": "N/A — previously reported 'stuck on Loading…' after Regenerate is now RESOLVED. Root cause per E1: backend generate endpoints previously used delete-then-insert creating a brief null window that could race with the frontend load effect; fix is replace_one upsert (atomic) plus a cancel-guarded frontend load effect keyed on current?.id. Verified end-to-end in this iteration."
+}

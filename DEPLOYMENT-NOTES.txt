@@ -1,0 +1,17 @@
+PROJECTPILOT DEPLOYMENT NOTES
+
+This build is a stateful single-owner workbench, not just a static Vite website.
+The React interface talks to a FastAPI backend that stores SQLite data, creates and edits project files, and uses local Git repositories.
+
+What works immediately:
+- Local full app: double-click START-PROJECTPILOT.bat on Windows.
+- The bundled frontend is already compiled, so Node is not required just to open the app.
+
+Why a frontend-only Vercel Drop is not the full app:
+- A Vite deployment can serve the interface, but the interface depends on /api endpoints from the Python backend.
+- The backend needs durable writable storage for SQLite and managed project workspaces/Git history.
+- The current backend intentionally restricts API access to localhost because it does not implement multi-user cloud authentication.
+
+The frontend dependency problem that blocked the earlier Vercel install has been cleaned up in this copy: the unused react-day-picker/date-fns calendar dependency pair was removed from package.json/package-lock.json and the unused calendar component was removed.
+
+A true hosted version should use a persistent single-instance host/volume or be refactored to a hosted database + durable object/file storage with cloud authentication. Do not treat a successful static frontend deploy as a working full ProjectPilot deployment.

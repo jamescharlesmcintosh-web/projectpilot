@@ -1,0 +1,6 @@
+{
+  "workflow": "create → scaffold → adopt → delegate → import real files → interactive preview → human approval → local commit",
+  "routes": 12,
+  "mobile_navigation": true,
+  "browser_errors": []
+}

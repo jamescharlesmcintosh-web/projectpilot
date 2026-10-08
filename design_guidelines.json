@@ -1,0 +1,81 @@
+{
+  "theme": "dark",
+  "archetype": "The Performance Pro / Deep Graphite Developer Tool",
+  "fonts": {
+    "sans": "Inter, system-ui, -apple-system, sans-serif",
+    "mono": "JetBrains Mono, Menlo, Monaco, Consolas, 'Courier New', monospace"
+  },
+  "colors": {
+    "background": "#0D0F12",
+    "surface": "#14171D",
+    "surface_elevated": "#1C2028",
+    "border": "#282E3A",
+    "border_subtle": "#1E232D",
+    "text_primary": "#E2E8F0",
+    "text_secondary": "#94A3B8",
+    "text_muted": "#64748B",
+    "electric_blue": "#38BDF8",
+    "success_green": "#4ADE80",
+    "pending_amber": "#FBBF24",
+    "error_red": "#F87171",
+    "expensive_violet": "#A78BFA",
+    "local_teal": "#2DD4BF"
+  },
+  "model_tiers": {
+    "local": {
+      "badge": "bg-teal-950/60 text-teal-300 border-teal-800/60",
+      "icon": "Cpu",
+      "cost": "Free ($0.00)"
+    },
+    "cheap": {
+      "badge": "bg-sky-950/60 text-sky-300 border-sky-800/60",
+      "icon": "Zap",
+      "cost": "Low ($0.0015 / 1k tokens)"
+    },
+    "expensive": {
+      "badge": "bg-purple-950/60 text-purple-300 border-purple-800/60",
+      "icon": "Sparkles",
+      "cost": "High ($0.03 / 1k tokens)"
+    },
+    "human_review": {
+      "badge": "bg-amber-950/60 text-amber-300 border-amber-800/60",
+      "icon": "UserCheck",
+      "cost": "Manual Gate"
+    }
+  },
+  "status_badges": {
+    "queued": "bg-slate-800/80 text-slate-300 border-slate-700",
+    "running": "bg-sky-950/80 text-sky-300 border-sky-700 animate-pulse",
+    "passed": "bg-emerald-950/80 text-emerald-300 border-emerald-700",
+    "failed": "bg-rose-950/80 text-rose-300 border-rose-700",
+    "pending_approval": "bg-amber-950/80 text-amber-300 border-amber-700",
+    "approved": "bg-blue-950/80 text-blue-300 border-blue-700",
+    "merged": "bg-purple-950/80 text-purple-300 border-purple-700"
+  },
+  "layouts": {
+    "sidebar": "w-64 bg-[#111318] border-r border-[#242A36] text-[#94A3B8]",
+    "topbar": "h-14 bg-[#14171D] border-b border-[#282E3A] px-4 flex items-center justify-between",
+    "main_content": "bg-[#0D0F12] text-[#E2E8F0] min-h-[calc(100vh-3.5rem)] p-6 space-y-6"
+  },
+  "component_path": "/app/frontend/src/components",
+  "instructions_to_main_agent": [
+    "Build a full-stack AI coding orchestration app called 'ProjectPilot' using FastAPI (backend) and React + Tailwind + Lucide Icons + Recharts + Sonner (frontend).",
+    "Use a left sidebar with navigation links: Dashboard, Projects, Master Plan, Delegation Plan, Task Queue, Live Preview Workspace, Verification Results, Git Branches & Diffs, Cost & Usage, Activity Logs, Settings.",
+    "Top bar MUST show current active project, repository, git branch (e.g. preview/task-104), and orchestration status badge.",
+    "Strictly enforce the 4 Model Tiers: Local (Teal), Cheap (Sky Blue), Expensive (Purple/Violet), Human Review (Amber).",
+    "The core workflow MUST follow: Project Brief -> Master Implementation Plan -> AI Delegation Plan -> Task Queue -> Model Assignment -> Code Edit Request -> Temporary Preview Branch -> Live Application Preview (iframe/mock runner) -> Verification Checks (Lint/Type/Build) -> Diff Review -> Human Approval -> Git Commit / Merge.",
+    "The application must NEVER autonomously merge or deploy without explicit human approval action.",
+    "Include a rich stateful backend (Python FastAPI) with endpoints for projects, tasks, master plan, delegation rules, code diffs, verification runs, live preview session status, usage metrics, and logs.",
+    "Include live mock actions: 'Run AI Edit Request', 'Execute Verification Checks', 'Switch Model Tier', 'Approve & Merge Branch', 'Reject Edit', 'Launch Live Preview'.",
+    "Every key interactive element, button, badge, input, tab, and card MUST contain explicit 'data-testid' attributes (e.g., data-testid='approve-diff-button', data-testid='model-tier-select', data-testid='run-verification-btn').",
+    "Use JetBrains Mono font for code blocks, IDs, Git hashes, diff view lines, terminal commands, and model metadata.",
+    "Avoid high-contrast full gradients. Stick to deep graphite (#0D0F12), slate surfaces (#14171D), crisp 1px borders (#282E3A), electric blue accents (#38BDF8), and subtle status hues."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "No transparent backgrounds on dropdowns or overlays; use dark elevated slate (#1C2028) with backdrop-blur.",
+    "Use Sonner for toast notifications upon approving code edits, running verifications, or toggling model tiers.",
+    "Provide clear interactive feedback with state changes, loading spinners, and progress indicators during mock AI generation or lint/build runs.",
+    "Maintain responsive layout with dense IDE-like split panes, expandable sections, and tabs for Live Preview vs Diff Review.",
+    "Ensure APCA / WCAG accessibility for dark backgrounds with high contrast light gray text (#E2E8F0) and visible focus rings."
+  ]
+}

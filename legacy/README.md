@@ -1,0 +1,1 @@
+Historical material from the uploaded mock MVP. These are not current test results or runtime modules. Current behavior and verification are documented in README.md and DELIVERY.md at the project root.

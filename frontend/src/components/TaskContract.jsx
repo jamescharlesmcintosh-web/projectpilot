@@ -1,0 +1,7 @@
+import React,{useState} from 'react';
+import api,{errorMessage} from '../lib/api';
+export default function TaskContract({task,onSaved}){
+ const [edit,setEdit]=useState(null),[error,setError]=useState(''),[busy,setBusy]=useState(false);
+ if(!['queued','failed','rejected'].includes(task.status))return null;
+ return <details className="pp-surface rounded-lg p-4 text-sm"><summary className="cursor-pointer" onClick={()=>{if(!edit)setEdit({acceptance_criteria:task.acceptance_criteria.join('\n'),verification_commands:task.verification_commands.join('\n'),allowed_files:task.allowed_files.join('\n'),blocked_files:task.blocked_files.join('\n')});}}>Edit task criteria & checks</summary>{edit&&<div className="mt-3 space-y-3">{Object.keys(edit).map(k=><label className="block text-xs text-slate-400" key={k}>{k.replaceAll('_',' ')} — one per line<textarea className="pp-input mt-1 font-mono text-xs" rows={3} value={edit[k]} onChange={e=>setEdit(x=>({...x,[k]:e.target.value}))}/></label>)}{error&&<p role="alert" className="text-red-200">{error}</p>}<button className="pp-btn" disabled={busy} onClick={async()=>{setBusy(true);try{await api.updateTask(task.id,Object.fromEntries(Object.entries(edit).map(([k,v])=>[k,v.split('\n').map(x=>x.trim()).filter(Boolean)])));await onSaved();setError('');}catch(e){setError(errorMessage(e));}finally{setBusy(false);}}}>Save contract & invalidate checks</button></div>}</details>;
+}
